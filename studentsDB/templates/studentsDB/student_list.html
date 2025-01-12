@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student List</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'studentsDB/mainpage.css' %}">
+    <script src="{% static 'studentsDB/js/firebase-config.js' %}"></script>
+<script src="{% static 'studentsDB/js/auth-state.js' %}"></script>
+
+</head>
+<body>
+    <div class="collapsible-panel" id="sidebar">
+        <button id="toggleSidebar" class="toggle-btn">☰</button>
+        <h2>Menu</h2>
+        <ul>
+            <li>Dashboard</li>
+            <li>Reports</li>
+            <li>Settings</li>
+        </ul>
+    </div>
+    <div class="content" id="content">
+        <h1>Students Info</h1>
+        <h3>Welcome to the students information page</h3>
+        <a href="{% url 'add_student' %}">Add Student</a>
+        <a href="{% url 'export_students' %}" class="export-excel">Export as excel</a>
+        <a href="{% url 'logout' %}">Logout</a>
+        <form method="get">
+            <input type="text" name="query" placeholder="Search...">
+            <select name="sort_by">
+                <option value="name">Name</option>
+                <option value="age">Age</option>
+            </select>
+            <button type="submit">Apply</button>
+        </form>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Actions</th>
+            </tr>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.name }}</td>
+                <td>{{ student.age }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.address }}</td>
+                <td>
+                    <div class="action-icons">
+                        <a href="{% url 'edit_student' student.id %}" class="edit"></a>
+                        <a href="{% url 'delete_student' student.id %}" class="delete"></a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <script src="{% static 'studentsDB/js/sidebar.js' %}"></script>
+</body>
+</html>
