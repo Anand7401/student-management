@@ -19,8 +19,7 @@ import os
 import firebase_admin
 from firebase_admin import credentials
 
-SERVICE_ACCOUNT_KEY_PATH = "C:\\Users\\anand\\PycharmProjects\\Interview_website\\Student_Management_Firebase auth\\Student_Management\\student-management-fb0ce-firebase-adminsdk-3n618-a3eb6c0593.json"
-
+SERVICE_ACCOUNT_KEY_PATH = os.getenv('SERVICE_ACCOUNT_KEY_PATH')
 
 if not firebase_admin._apps:
     cred = credentials.Certificate(SERVICE_ACCOUNT_KEY_PATH)
